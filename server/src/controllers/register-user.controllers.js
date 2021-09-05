@@ -12,6 +12,14 @@ export const registerUserController = async (req, res) => {
 
   const { name, username, email, password, userType } = req.body;
 
+  if (
+    userType &&
+    (userType.toLowerCase() === "admin" ||
+      userType !== "user" ||
+      userType !== "vendor")
+  )
+    return res.status(406).json({ message: "Wrong user type." });
+
   const isDuplicateUsername = await User.findOne({ username });
   if (isDuplicateUsername)
     return res.status(409).json({ message: "Username already exists!" });
