@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
+import userRoutes from "./routes/user.routes.js";
+
 const app = express();
 
 app.use(express.json({ limit: "20mb", extended: true }));
@@ -12,6 +14,8 @@ app.use(
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   })
 );
+
+app.use("/api/user", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
